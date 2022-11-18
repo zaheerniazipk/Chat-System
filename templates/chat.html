@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatApp</title>
+
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="{% static './css/chat.css' %}" type="text/css">
+
+</head>
+
+<body class="chat-body">
+
+    <div class="main-container">
+
+        <div class="leftSide d-side" id="side--1">
+            <!-- header -->
+            <div class="main-header">
+                <div class="user_img">
+                    <img src="{% static './images/avatar1.png' %}" alt="User Image" class="cover">
+                </div>
+                <ul class="nav_icons">
+                    <!-- <li>
+                        <ion-icon name="scan-circle-outline"></ion-icon>
+                    </li>
+                    -->
+                    <li>
+                        <!-- Trigger/Open The Modal -->
+                        <ion-icon name="chatbox" id="myBtn"></ion-icon>
+                    </li>
+
+                    <!-- The Modal -->
+                    <div id="myModal" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span class="close">&times;</span>
+                                <h2>Friend List</h2>
+                            </div>
+                            <div class="modal-body">
+                                <div class="chat_list">
+                                    <!-- chat person block 1-->
+                                    <div class="main-block active">
+                                        <!-- img -->
+                                        <div class="imgbox">
+                                            <img src="{% static './images/1.jpg' %}" alt="User Image" class="cover">
+                                        </div>
+                                        <!-- details -->
+                                        <div class="details">
+                                            <div class="list_head">
+                                                <h4>Faisal Malik</h4>
+                                            </div>
+                                            <!-- Message -->
+                                            <div class="message_p">
+                                                <p>We need to design a chat app as soon as possible</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- chat person block 2 -->
+                                    <div class="main-block unread-msg">
+                                        <!-- img -->
+                                        <div class="imgbox">
+                                            <img src="{% static './images/2.jpg' %}" alt="User Image" class="cover">
+                                        </div>
+                                        <!-- details -->
+                                        <div class="details">
+                                            <div class="list_head">
+                                                <h4>Zaheer Niazi</h4>
+                                            </div>
+                                            <!-- Message -->
+                                            <div class="message_p">
+                                                <p>OK, I will try my level best!!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- chat person block 3-->
+                                    <div class="main-block unread-msg">
+                                        <!-- img -->
+                                        <div class="imgbox">
+                                            <img src="{% static './images/1.jpg' %}" alt="User Image" class="cover">
+                                        </div>
+                                        <!-- details -->
+                                        <div class="details">
+                                            <div class="list_head">
+                                                <h4>Imran Khan</h4>
+                                            </div>
+                                            <!-- Message -->
+                                            <div class="message_p">
+                                                <p>Come to my shop</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- chat person block 4 -->
+                                    <div class="main-block unread-msg">
+                                        <!-- img -->
+                                        <div class="imgbox">
+                                            <img src="{% static './images/2.jpg' %}" alt="User Image" class="cover">
+                                        </div>
+                                        <!-- details -->
+                                        <div class="details">
+                                            <div class="list_head">
+                                                <h4>Qurban Khan</h4>
+                                            </div>
+                                            <!-- Message -->
+                                            <div class="message_p">
+                                                <p>Please wait</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="modal-footer">
+                            <h3>Modal Footer</h3>
+                        </div> -->
+                    </div>
+
+
+                    <li>
+                        <ion-icon class="dropbtn" name="ellipsis-vertical" onclick="dropDpwnMenu1()"></ion-icon>
+                    </li>
+                    <div class="dropdown-content" id="myDropdown1">
+                        <a href="#">New chat</a>
+                        <a href="#">Sign out</a>
+                    </div>
+
+                    <li class="menu-icon-li">
+                        <a href="#" onclick="hideChatList()">
+                            <ion-icon name="chevron-forward" class="forward-icon"></ion-icon>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- search -->
+            <div class="search_chat">
+                <div>
+                    <input type="text" placeholder="Search or start new chat">
+                    <ion-icon name="search"></ion-icon>
+                </div>
+            </div>
+            <!-- chat list -->
+            <div class="chat_list">
+
+                <!-- chat person block 1-->
+                <div class="main-block active">
+                    <!-- img -->
+                    <div class="imgbox">
+                        <img src="{% static './images/1.jpg' %}" alt="User Image" class="cover">
+                    </div>
+                    <!-- details -->
+                    <div class="details">
+                        <div class="list_head">
+                            <h4>Faisal Malik</h4>
+                            <p class="time">10:56</p>
+                        </div>
+                        <!-- Message -->
+                        <div class="message_p">
+                            <p>We need to design a chat app as soon as possible</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- chat person block 2 -->
+                <div class="main-block unread-msg">
+                    <!-- img -->
+                    <div class="imgbox">
+                        <img src="{% static './images/2.jpg' %}" alt="User Image" class="cover">
+                    </div>
+                    <!-- details -->
+                    <div class="details">
+                        <div class="list_head">
+                            <h4>Zaheer Niazi</h4>
+                            <p class="time">10:57</p>
+                        </div>
+                        <!-- Message -->
+                        <div class="message_p">
+                            <p>OK, I will try my level best!!</p>
+                            <b>1</b>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- chat person block 3-->
+                <div class="main-block unread-msg">
+                    <!-- img -->
+                    <div class="imgbox">
+                        <img src="{% static './images/1.jpg' %}" alt="User Image" class="cover">
+                    </div>
+                    <!-- details -->
+                    <div class="details">
+                        <div class="list_head">
+                            <h4>Imran Khan</h4>
+                            <p class="time">10:56</p>
+                        </div>
+                        <!-- Message -->
+                        <div class="message_p">
+                            <p>Come to my shop</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- chat person block 4 -->
+                <div class="main-block unread-msg">
+                    <!-- img -->
+                    <div class="imgbox">
+                        <img src="{% static './images/2.jpg' %}" alt="User Image" class="cover">
+                    </div>
+                    <!-- details -->
+                    <div class="details">
+                        <div class="list_head">
+                            <h4>Qurban Khan</h4>
+                            <p class="time">10:57</p>
+                        </div>
+                        <!-- Message -->
+                        <div class="message_p">
+                            <p>Please wait</p>
+                            <b>1</b>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Right side Container -->
+        <div class="rightSide side-r" id="side--2">
+            <!--  -header -->
+            <div class="main-header">
+                <div class="imgText">
+                    <div class="user_img">
+                        <img src="{% static './images/1.jpg' %}" alt="User Image" class="cover">
+                    </div>
+                    <h4>Faisal Malik<br><span>online</span></h4>
+                </div>
+                <ul class="nav_icons">
+                    <li>
+                        <ion-icon name="search"></ion-icon>
+                    </li>
+
+                    <!-- dropdown menu -->
+                    <li>
+                        <ion-icon class="dropbtn" name="attach-outline" onclick="dropDpwnMenu3()"></ion-icon>
+                    </li>
+                    <div class="dropdown-content" id="myDropdown3">
+                        <a href="#" onclick="chooseImage()">Image
+                            <input type="file" id="imageFile" name="filename" onchange="sendImage(this)"
+                                accept="image/*" style="display: none;">
+                        </a>
+                        <a href="#">Document</a>
+                        <a href="#">Camera</a>
+                        <a href="#">Video</a>
+                    </div>
+
+                    <!-- dropdown icon -->
+                    <li>
+                        <ion-icon class="dropbtn" name="ellipsis-vertical" onclick="dropDpwnMenu2()"></ion-icon>
+                    </li>
+                    <div class="dropdown-content" id="myDropdown2">
+                        <a href="#">Delete</a>
+                        <a href="#">Block</a>
+                    </div>
+
+                    <li class="menu-icon-li">
+                        <a href="#" onclick="showChatList()">
+                            <ion-icon name="chevron-back" class="back-icon"></ion-icon>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Chat box -->
+            <div class="chatBox" id="messages">
+                <div class="message my_message">
+                    <div>Hi, this is Faisal Malik<br><span>8:15</span></div>
+                </div>
+                <div class="message friend_message">
+                    <div>Hello<br><span>8:16</span></div>
+                </div>
+                <div class="message my_message">
+                    <div>How are You?<br><span>8:15</span></div>
+                </div>
+                <div class="message friend_message">
+                    <div>Im good<br><span>8:16</span></div>
+                </div>
+                <div class="message my_message">
+                    <div>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint odit exercitationem cumque ullam
+                        molestias, facilis aliquid dolorem ea magnam sequi vel ipsa magni repellendus cum architecto
+                        doloremque quia ipsum eaque.<br><span>8:15</span></div>
+                </div>
+                <div class="message friend_message">
+                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita tempore eaque atque dolore!
+                        Magni vel at, incidunt, voluptate tempore illum quas accusamus delectus ab impedit rerum facilis
+                        aliquid veniam fugit?<br><span>8:16</span></div>
+                </div>
+                <div class="message my_message">
+                    <div>
+                        <img src="{% static './images/2.jpg' %}" alt=""><br>
+                        <span>8:15</span>
+                    </div>
+                </div>
+                <div class="message friend_message">
+                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita tempore eaque atque dolore!
+                        Magni vel at, incidunt, voluptate tempore illum quas accusamus delectus ab impedit rerum facilis
+                        aliquid veniam fugit?<br><span>8:16</span></div>
+                </div>
+                <div class="message my_message">
+
+                </div>
+            </div>
+            <!-- Chat Input -->
+            <div class="chatbox_input">
+                <ion-icon name="happy-outline"></ion-icon>
+
+                <input type="text" placeholder="Type a Message" id="txtMessage" onclick="onKeyDown()"
+                    onkeyup="changeSendIcon(this)">
+                <ion-icon name="mic" id="audio"></ion-icon>
+                <ion-icon name="send-outline" id="send" style="display: none;">
+                </ion-icon>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- IonIcons -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+
+    <!--JS Files-->
+    <script src="{% static './js/main.js' %}"></script>
+
+
+</body>
+
+</html>
