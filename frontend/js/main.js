@@ -30,48 +30,29 @@ function sendMessage() {
 }
 
 
+
+// Dropdown Menu
+var dropbtns = Array.from(document.getElementsByClassName('dropbtn'))
+// console.log(Array.from(dropbtns))
+dropbtns.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+        openDropdown(e.target.dataset.id)
+    })
+});
 // DropDown 1
-function dropDpwnMenu1() {
-    document.getElementById("myDropdown1").classList.toggle("drop-show");
+function openDropdown(id) {
+    document.getElementById(id).classList.toggle("drop-show");
 }
-window.onclick = function (e) {
+
+document.addEventListener("click", function (e) {
+    // console.log(e)
     if (!e.target.matches('.dropbtn')) {
-        var myDropdown1 = document.getElementById("myDropdown1");
-        if (myDropdown1.classList.contains('drop-show')) {
-            myDropdown1.classList.remove('drop-show');
-        }
+        var dropdownContents = Array.from(document.getElementsByClassName("dropdown-content"));
+        dropdownContents.forEach(content => {
+            content.classList.remove('drop-show');
+        })
     }
-}
-
-// DropDown 2
-function dropDpwnMenu2() {
-    document.getElementById("myDropdown2").classList.toggle("drop-show");
-}
-
-// Close the dropdown if the user clicks outside of it
-window.onclick = function (e) {
-    if (!e.target.matches('.dropbtn')) {
-        var myDropdown2 = document.getElementById("myDropdown2");
-        if (myDropdown2.classList.contains('drop-show')) {
-            myDropdown2.classList.remove('drop-show');
-        }
-    }
-}
-
-// DropDown 3
-function dropDpwnMenu3() {
-    document.getElementById("myDropdown3").classList.toggle("drop-show");
-}
-
-// Close the dropdown if the user clicks outside of it
-window.onclick = function (e) {
-    if (!e.target.matches('.dropbtn')) {
-        var myDropdown3 = document.getElementById("myDropdown3");
-        if (myDropdown3.classList.contains('drop-show')) {
-            myDropdown3.classList.remove('drop-show');
-        }
-    }
-}
+})
 
 
 // Model for show list
