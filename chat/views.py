@@ -11,3 +11,6 @@ def login(request):
 
 def chat(request):
     return render(request,'chat.html')
+
+def chat_group(request):
+    return render(request,'chat-group.html')
