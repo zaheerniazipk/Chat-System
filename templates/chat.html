@@ -9,6 +9,7 @@
 
     <!-- CSS Stylesheet -->
      <link rel="stylesheet" href="{% static './css/chat.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static './css/create-group.css' %}" type="text/css">
 
 </head>
 
@@ -129,8 +130,30 @@
                     </li>
                     <div class="dropdown-content" id="myDropdown1">
                         <a href="{% url 'chat:chat_group' %}">Open Groups</a>
+                         <a href="#" id="myBtn2">Add Friend</a>
                         <a href="#">Sign out</a>
                     </div>
+
+                      <!-- Model 2 -->
+                    <div id="myModal2" class="modal">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span class="close">&times;</span>
+                                <h2>Add Friend</h2>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container">
+                                    <form class="form" method="" action="">
+                                        <h2 class="form_title">Add Friend</h2>
+                                        <input class="form_input" type="text" placeholder="Name">
+                                        <button class="form_button submit">Save</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <li class="menu-icon-li">
                         <a href="#" onclick="hideChatList()">
                             <ion-icon name="chevron-forward" class="forward-icon"></ion-icon>
