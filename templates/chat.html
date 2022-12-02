@@ -61,59 +61,9 @@
                                         </div>
                                     </div>
 
-                                    <!-- chat person block 2 -->
-                                    <div class="main-block unread-msg">
-                                        <!-- img -->
-                                        <div class="imgbox">
-                                           <img src="{% static './images/2.jpg' %}" alt="User Image" class="cover"><br>
-                                        </div>
-                                        <!-- details -->
-                                        <div class="details">
-                                            <div class="list_head">
-                                                <h4>Zaheer Niazi</h4>
-                                            </div>
-                                            <!-- Message -->
-                                            <div class="message_p">
-                                                <p>OK, I will try my level best!!</p>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <!-- chat person block 3-->
-                                    <div class="main-block unread-msg">
-                                        <!-- img -->
-                                        <div class="imgbox">
-                                           <img src="{% static './images/1.jpg' %}" alt="User Image" class="cover"><br>
-                                        </div>
-                                        <!-- details -->
-                                        <div class="details">
-                                            <div class="list_head">
-                                                <h4>Imran Khan</h4>
-                                            </div>
-                                            <!-- Message -->
-                                            <div class="message_p">
-                                                <p>Come to my shop</p>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <!-- chat person block 4 -->
-                                    <div class="main-block unread-msg">
-                                        <!-- img -->
-                                        <div class="imgbox">
-                                            <img src="{% static './images/2.jpg' %}" alt="User Image" class="cover"><br>
-                                        </div>
-                                        <!-- details -->
-                                        <div class="details">
-                                            <div class="list_head">
-                                                <h4>Qurban Khan</h4>
-                                            </div>
-                                            <!-- Message -->
-                                            <div class="message_p">
-                                                <p>Please wait</p>
-                                            </div>
-                                        </div>
-                                    </div>
+
 
 
                                 </div>
@@ -131,7 +81,7 @@
                     <div class="dropdown-content" id="myDropdown1">
                         <a href="{% url 'chat:chat_group' %}">Open Groups</a>
                          <a href="#" id="myBtn2">Add Friend</a>
-                        <a href="#">Sign out</a>
+                        <a href="{% url 'chat:Logout'%}">Sign out</a>
                     </div>
 
                       <!-- Model 2 -->
@@ -144,10 +94,11 @@
                             </div>
                             <div class="modal-body">
                                 <div class="container">
-                                    <form class="form" method="" action="">
+                                    <form class="form" method="POST" action="" name="add_friend">
+                                        {% csrf_token %}
                                         <h2 class="form_title">Add Friend</h2>
-                                        <input class="form_input" type="text" placeholder="Name">
-                                        <button class="form_button submit">Save</button>
+                                        <input name="user" class="form_input" type="text" placeholder="User Name">
+                                        <button type="submit" name="add_friend" class="form_button submit">Add Friend</button>
                                     </form>
                                 </div>
                             </div>
@@ -169,85 +120,77 @@
                 </div>
             </div>
             <!-- chat list -->
-            <div class="chat_list">
 
+            <div class="chat_list">
+                {% for friend in list %}
                 <!-- chat person block 1-->
-                <div class="main-block active">
+{#                    <form action="" method="post" id="chat_data">#}
+                <div class="main-block active" >
                     <!-- img -->
                     <div class="imgbox">
                         <img src="{% static './images/1.jpg' %}" alt="User Image" class="cover"><br>
                     </div>
                     <!-- details -->
-                    <div class="details">
+{#                    <a type="submit" id="chat_submit">#}
+                    <div class="details" >
                         <div class="list_head">
-                            <h4>Faisal Malik</h4>
+                            <h4 class="user-item" data-id="{{ friend.to_user.username }}">{{ friend.to_user.username }}</h4>
                             <p class="time">10:56</p>
                         </div>
-                        <!-- Message -->
+{#                        <!-- Message -->#}
                         <div class="message_p">
                             <p>We need to design a chat app as soon as possible</p>
                         </div>
                     </div>
+{#                    </a>#}
                 </div>
+{#                    </form>#}
+                {% endfor %}
 
-                <!-- chat person block 2 -->
-                <div class="main-block unread-msg">
-                    <!-- img -->
-                    <div class="imgbox">
-                       <img src="{% static './images/2.jpg' %}" alt="User Image" class="cover"><br>
-                    </div>
-                    <!-- details -->
-                    <div class="details">
-                        <div class="list_head">
-                            <h4>Zaheer Niazi</h4>
-                            <p class="time">10:57</p>
-                        </div>
-                        <!-- Message -->
-                        <div class="message_p">
-                            <p>OK, I will try my level best!!</p>
-                            <b>1</b>
-                        </div>
-                    </div>
-                </div>
+            <script>
+                let userItems = document.getElementsByClassName("user-item")
+                Array.from(userItems).forEach(el => {
+                    document.addEventListener('click',async function(e) {
+                        console.log(e)
+                         // Default options are marked with *
+                          const response = await fetch('{% url 'chat:send_id' %}', {
+                            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                            headers: { "X-CSRFToken": '{{csrf_token}}' },
 
-                <!-- chat person block 3-->
-                <div class="main-block unread-msg">
-                    <!-- img -->
-                    <div class="imgbox">
-                        <img src="{% static './images/1.jpg' %}" alt="User Image" class="cover"><br>
-                    </div>
-                    <!-- details -->
-                    <div class="details">
-                        <div class="list_head">
-                            <h4>Imran Khan</h4>
-                            <p class="time">10:56</p>
-                        </div>
-                        <!-- Message -->
-                        <div class="message_p">
-                            <p>Come to my shop</p>
-                        </div>
-                    </div>
-                </div>
+                            body: JSON.stringify({
+                                userId: e.target.dataset['id']
+                            }) // body data type must match "Content-Type" header
+                          });
+                          console.log(response)
 
-                <!-- chat person block 4 -->
-                <div class="main-block unread-msg">
-                    <!-- img -->
-                    <div class="imgbox">
-                        <img src="{% static './images/2.jpg' %}" alt="User Image" class="cover"><br>
-                    </div>
-                    <!-- details -->
-                    <div class="details">
-                        <div class="list_head">
-                            <h4>Qurban Khan</h4>
-                            <p class="time">10:57</p>
-                        </div>
-                        <!-- Message -->
-                        <div class="message_p">
-                            <p>Please wait</p>
-                            <b>1</b>
-                        </div>
-                    </div>
-                </div>
+                    })
+                })
+
+            </script>
+
+{#                <!-- chat person block 2 -->#}
+{#                <div class="main-block unread-msg">#}
+{#                    <!-- img -->#}
+{#                    <div class="imgbox">#}
+{#                       <img src="{% static './images/2.jpg' %}" alt="User Image" class="cover"><br>#}
+{#                    </div>#}
+{#                    <!-- details -->#}
+{#                    <div class="details">#}
+{#                        <div class="list_head">#}
+{#                            <h4>Zaheer Niazi</h4>#}
+{#                            <p class="time">10:57</p>#}
+{#                        </div>#}
+{#                        <!-- Message -->#}
+{#                        <div class="message_p">#}
+{#                            <p>OK, I will try my level best!!</p>#}
+{#                            <b>1</b>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+
+
+
+
 
             </div>
         </div>
@@ -306,47 +249,16 @@
                 <div class="message friend_message">
                     <div>Hello<br><span>8:16</span></div>
                 </div>
-                <div class="message my_message">
-                    <div>How are You?<br><span>8:15</span></div>
-                </div>
-                <div class="message friend_message">
-                    <div>Im good<br><span>8:16</span></div>
-                </div>
-                <div class="message my_message">
-                    <div>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sint odit exercitationem cumque ullam
-                        molestias, facilis aliquid dolorem ea magnam sequi vel ipsa magni repellendus cum architecto
-                        doloremque quia ipsum eaque.<br><span>8:15</span></div>
-                </div>
-                <div class="message friend_message">
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita tempore eaque atque dolore!
-                        Magni vel at, incidunt, voluptate tempore illum quas accusamus delectus ab impedit rerum facilis
-                        aliquid veniam fugit?<br><span>8:16</span></div>
-                </div>
-                <div class="message my_message">
-                    <div>
-                        <img src="{% static './images/2.jpg' %}" alt=""><br>
-                        <span>8:15</span>
-                    </div>
-                </div>
-                <div class="message friend_message">
-                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita tempore eaque atque dolore!
-                        Magni vel at, incidunt, voluptate tempore illum quas accusamus delectus ab impedit rerum facilis
-                        aliquid veniam fugit?<br><span>8:16</span></div>
-                </div>
-                <div class="message my_message">
 
-                </div>
-            </div>
             <!-- Chat Input -->
-            <div class="chatbox_input">
+            <form method="post" action="{% url 'chat:Logout' %}"> <div class="chatbox_input">
                 <ion-icon name="happy-outline"></ion-icon>
-
-                <input type="text" placeholder="Type a Message" id="txtMessage" onclick="onKeyDown()"
-                    onkeyup="changeSendIcon(this)">
-                <ion-icon name="mic" id="audio" onmousedown="record(this)" onmouseup="stop(this)"></ion-icon>
-                <ion-icon name="send-outline" id="send" style="display: none;">
-                </ion-icon>
-            </div>
+                <input type="hidden" value="{{ request.user.email }}" name="reciever">
+                {% csrf_token %}
+                <input type="text" placeholder="Type a Message" id="txtMessage" >
+                <button type="submit"> <ion-icon type="submit" name="send-sharp"></ion-icon></button>
+{#                <ion-icon  name="send-outline" id="send" type="submit"></ion-icon>#}
+            </div> </form>
         </div>
 
     </div>

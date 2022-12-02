@@ -87,7 +87,7 @@
                         <a href="{% url 'chat:chat_app' %}">Open chat</a>
                         <a href="#" id="myBtn2">Create group</a>
                         <a href="#" id="myBtn3">Group friends</a>
-                        <a href="#">Sign out</a>
+                        <a href="{% url 'chat:Logout' %}">Sign out</a>
                     </div>
 
                     <!-- The Modal2 -->
@@ -163,6 +163,7 @@
                                     <form class="form" method="" action="">
                                         <h2 class="form_title">Friend List</h2>
                                         <div class="chat_list">
+                                            {% for friend in list %}
                                             <!-- chat person block 1-->
                                             <div class="main-block active">
                                                 <!-- img -->
@@ -172,54 +173,11 @@
                                                 <!-- details -->
                                                 <div class="details">
                                                     <div class="list_head">
-                                                        <h4>Faisal Malik</h4>
+                                                        <h4>{{ friend.to_user.username }}</h4>
                                                     </div>
 
                                                 </div>
-                                            </div>
-
-                                            <!-- chat person block 2 -->
-                                            <div class="main-block unread-msg">
-                                                <!-- img -->
-                                                <div class="imgbox">
-                                                    <img src="{% static './images/2.jpg' %}" alt="User Image" class="cover"><br>
-                                                </div>
-                                                <!-- details -->
-                                                <div class="details">
-                                                    <div class="list_head">
-                                                        <h4>Zaheer Niazi</h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- chat person block 3-->
-                                            <div class="main-block unread-msg">
-                                                <!-- img -->
-                                                <div class="imgbox">
-                                                    <img src="{% static './images/1.jpg' %}" alt="User Image" class="cover"><br>
-                                                </div>
-                                                <!-- details -->
-                                                <div class="details">
-                                                    <div class="list_head">
-                                                        <h4>Imran Khan</h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- chat person block 4 -->
-                                            <div class="main-block unread-msg">
-                                                <!-- img -->
-                                                <div class="imgbox">
-                                                    <img src="{% static './images/2.jpg' %}" alt="User Image" class="cover"><br>
-                                                </div>
-                                                <!-- details -->
-                                                <div class="details">
-                                                    <div class="list_head">
-                                                        <h4>Qurban Khan</h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-
+                                            </div>{% endfor %}
 
                                         </div>
                                     </form>
